@@ -38,3 +38,5 @@ set preview_images_method urxvt
 ```
 
 Nice tools: neofetch, pstree
+
+see: https://www.atlassian.com/git/tutorials/dotfiles
