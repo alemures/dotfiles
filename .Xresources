@@ -23,9 +23,9 @@
 #define nord14 #A3BE8C
 #define nord15 #B48EAD
 
-*.foreground:   nord4
-*.background:   nord0
-*.cursorColor:  nord4
+*.foreground: nord4
+*.background: nord0
+*.cursorColor: nord4
 *fading: 35
 *fadeColor: nord3
 
@@ -48,12 +48,15 @@
 
 ! Xft font
 
-Xft.dpi:                    96
-Xft.antialias:              true
-Xft.rgba:                   rgb
-Xft.hinting:                true
-Xft.hintstyle:              hintslight
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcdfilter
 
 ! URxvt
 
-URxvt.font: xft:Ubuntu Mono:pixelsize=14,style=regular
+URxvt.font: xft:Ubuntu Mono:size=12,style=regular
+URxvt.saveLines: 2000
+URxvt.scrollBar: false
