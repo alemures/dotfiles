@@ -14,6 +14,7 @@ floating_modifier $mod
 # autostart
 exec --no-startup-id hsetroot -cover ~/.wallpaper.png
 exec --no-startup-id setxkbmap -option caps:super
+exec --no-startup-id urxvtd -q -f -o
 exec --no-startup-id i3-sensible-terminal
 
 # start a terminal

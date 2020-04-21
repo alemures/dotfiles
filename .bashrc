@@ -75,26 +75,22 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-
+    alias ls='ls -hN --color=auto --group-directories-first'
     alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    alias diff='diff --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias mv='mv -i'
+alias mv='mv -iv'
 alias rm='rm -i'
-alias cp='cp -i'
+alias cp='cp -iv'
+alias mkd='mkdir -pv'
+
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -115,5 +111,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
