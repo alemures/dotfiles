@@ -76,6 +76,21 @@ bindsym $mod+space focus mode_toggle
 # focus the child container
 #bindsym $mod+d focus child
 
+# Pulse Audio controls
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+#bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+
+# Sreen brightness controls
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Media player controls
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -166,6 +181,7 @@ set_from_resource $nord15 color13
 # Start i3bar to display a workspace bar
 bar {
     status_command i3status
+    position top
 
     colors {
         background $background

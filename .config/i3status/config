@@ -18,6 +18,7 @@ order += "disk /"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery all"
+order += "volume master"
 order += "load"
 order += "tztime local"
 
@@ -42,6 +43,14 @@ tztime local {
 
 load {
         format = " %1min"
+}
+
+volume master {
+        format = " %volume"
+        format_muted = " %volume"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
 }
 
 disk "/" {
