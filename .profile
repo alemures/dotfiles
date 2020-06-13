@@ -1,6 +1,7 @@
 # Default programs
 export TERMINAL="urxvtc"
 export EDITOR="vim"
+export BROWSER="google-chrome"
 
 # if running bash source .bashrc
 if [ -n "$BASH_VERSION" ]; then
