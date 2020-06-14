@@ -60,3 +60,5 @@ Xft.lcdfilter: lcdfilter
 URxvt.font: xft:Ubuntu Mono:size=12
 URxvt.saveLines: 2000
 URxvt.scrollBar: false
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
