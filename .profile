@@ -1,7 +1,10 @@
 # Default programs
-export TERMINAL="urxvtc"
-export EDITOR="vim"
-export BROWSER="google-chrome"
+export TERMINAL='urxvtc'
+export EDITOR='vim'
+export BROWSER='google-chrome'
+
+# From tzselec
+export TZ='Europe/Madrid'
 
 # if running bash source .bashrc
 if [ -n "$BASH_VERSION" ]; then
