@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. $HOME/.local/bin/nord_theme.sh
+
 options='bash
 bash_aliases
 dunst
@@ -9,7 +11,7 @@ ranger
 vim
 xresources'
 
-choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ')
+choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:size=12' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
 
 case $choice in
 	bash)		file="$HOME/.bashrc";;
