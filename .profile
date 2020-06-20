@@ -2,6 +2,7 @@
 export TERMINAL='urxvtc'
 export EDITOR='vim'
 export BROWSER='google-chrome'
+export SUDO_ASKPASS=/usr/bin/ssh-askpass
 
 # From tzselec
 export TZ='Europe/Madrid'
