@@ -10,7 +10,7 @@ parts=$(echo "$devices" | grep part)
 part=$(echo "$parts" | dmenu -i -l 5 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=12' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3" | awk '{print $1}')
 
-[ -z $(lsblk -rpo 'name' | grep $part) ] && alert_error $script "Invalid partition '$part'" && exit 1
+[ -z $(lsblk -rpo 'name' | grep $part) ] && exit 1
 
 mount_point=$(echo "$devices" | grep $part | awk '{print $4}')
 
