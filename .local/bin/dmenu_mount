@@ -14,15 +14,13 @@ part=$(echo "$parts" | dmenu -i -l 5 -p 'Mount/Umount partition:' -fn 'Ubuntu Mo
 
 mount_point=$(echo "$devices" | grep $part | awk '{print $4}')
 
-if [ -z "$mount_point" ]
-then
+if [ -z "$mount_point" ]; then
   dir=$(find /mnt /media $HOME -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
     -fn 'Ubuntu Mono:size=12' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
-  if [ -d "$dir" ]
-  then
+  if [ -d "$dir" ]; then
     sudo -A mount $part $dir && alert_info $script "Mounted $part in $dir"
   else
-    alert_error $script "'$dir' does not exist"
+    alert_error $script "$dir does not exist"
   fi
 else
   sudo -A umount $part && alert_info $script "Umounted $part"
