@@ -4,6 +4,7 @@
 
 options='bash
 bash_aliases
+compton
 dunst
 i3
 profile
@@ -17,6 +18,7 @@ choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:
 case $choice in
   bash)         file="$HOME/.bashrc";;
   bash_aliases) file="$HOME/.bash_aliases";;
+  compton)      file="$HOME/.config/compton/compton.conf";;
   dunst)        file="$HOME/.config/dunst/dunstrc";;
   i3)           file="$HOME/.config/i3/config";;
   profile)      file="$HOME/.profile";;
