@@ -18,7 +18,8 @@ if [ -z "$mount_point" ]; then
   dir=$(find /mnt /media $HOME -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
     -fn 'Ubuntu Mono:size=12' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
   if [ -d "$dir" ]; then
-    sudo -A mount $part $dir && alert_info $script "Mounted $part in $dir"
+    err=$(sudo -A mount $part $dir 2>&1)
+    [ $? -eq 0 ] && alert_info $script "Mounted $part in $dir" || alert_error $script "$err"
   else
     alert_error $script "$dir does not exist"
   fi
