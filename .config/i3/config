@@ -33,7 +33,6 @@ floating_modifier $mod
 exec_always --no-startup-id hsetroot -fill $HOME/.wallpaper.png
 exec --no-startup-id setxkbmap -option caps:super
 exec --no-startup-id urxvtd --quiet
-exec --no-startup-id compton --config $HOME/.config/compton/compton.conf
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
