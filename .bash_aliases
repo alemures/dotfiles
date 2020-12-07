@@ -19,6 +19,8 @@ alias mv='mv -iv'
 alias rm='rm -i'
 alias cp='cp -iv'
 alias mkd='mkdir -pv'
+alias yt='youtube-dl --add-metadata -i'
+alias yta='yt -x -f bestaudio/best'
 
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
