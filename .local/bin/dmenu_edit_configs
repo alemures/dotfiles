@@ -6,6 +6,7 @@ options='bash
 bash_aliases
 dunst
 i3
+i3status
 profile
 ranger
 vim
@@ -19,6 +20,7 @@ case $choice in
   bash_aliases) file="$HOME/.bash_aliases";;
   dunst)        file="$HOME/.config/dunst/dunstrc";;
   i3)           file="$HOME/.config/i3/config";;
+  i3status)     file="$HOME/.config/i3status/config";;
   profile)      file="$HOME/.profile";;
   ranger)       file="$HOME/.config/ranger/rc.conf";;
   vim)          file="$HOME/.vimrc";;
