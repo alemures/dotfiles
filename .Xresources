@@ -67,9 +67,9 @@ URxvt.keysym.Shift-Down: command:\033]721;1\007
 URxvt.perl-ext: default,matcher,resize-font
 ! matcher
 URxvt.url-launcher: sensible-browser
-URxvt.keysym.C-Delete: perl:matcher:last
-URxvt.keysym.M-Delete: perl:matcher:list
+URxvt.keysym.Control-Delete: perl:matcher:last
+URxvt.keysym.Meta-Delete: perl:matcher:list
 URxvt.matcher.button: 1
 !resize-font
-URxvt.keysym.M-k: font-size:increase
-URxvt.keysym.M-j: font-size:decrease
+URxvt.keysym.Meta-k: font-size:increase
+URxvt.keysym.Meta-j: font-size:decrease
