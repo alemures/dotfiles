@@ -68,12 +68,21 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 ! Plugins
-URxvt.perl-ext-common: default,matcher,resize-font
+URxvt.perl-ext-common: default,keyboard-select,url-select
 ! matcher
-URxvt.url-launcher: sensible-browser
-URxvt.keysym.Control-Delete: perl:matcher:last
-URxvt.keysym.Meta-Delete: perl:matcher:list
-URxvt.matcher.button: 1
-!resize-font
+!URxvt.url-launcher: sensible-browser
+!URxvt.keysym.Control-Delete: perl:matcher:last
+!URxvt.keysym.Meta-Delete: perl:matcher:list
+!URxvt.matcher.button: 1
+!URxvt.matcher.rend.0: Uline Bold
+! resize-font (not explicitly required)
 URxvt.keysym.Meta-k: font-size:increase
 URxvt.keysym.Meta-j: font-size:decrease
+! keyboard-select
+URxvt.keysym.Meta-Escape: perl:keyboard-select:activate
+URxvt.keysym.Meta-s: perl:keyboard-select:search
+! url-select
+URxvt.keysym.Meta-u: perl:url-select:select_next
+URxvt.url-select.launcher: sensible-browser
+URxvt.url-select.underline: true
+URxvt.url-select.button: 1
