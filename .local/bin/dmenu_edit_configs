@@ -12,7 +12,7 @@ ranger
 vim
 xresources'
 
-choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:size=12' \
+choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:size=11' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
 
 case $choice in

@@ -7,7 +7,7 @@ script='dmenu_mount'
 devices=$(lsblk -rpo 'name,type,size,mountpoint')
 
 parts=$(echo "$devices" | grep part)
-part=$(echo "$parts" | dmenu -i -l 5 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=12' \
+part=$(echo "$parts" | dmenu -i -l 5 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=11' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3" | awk '{print $1}')
 
 [ -z $(lsblk -rpo 'name' | grep $part) ] && exit 1
@@ -16,7 +16,7 @@ mount_point=$(echo "$devices" | grep $part | awk '{print $4}')
 
 if [ -z "$mount_point" ]; then
   dir=$(find /mnt /media $HOME -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
-    -fn 'Ubuntu Mono:size=12' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
+    -fn 'Ubuntu Mono:size=11' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
   if [ -d "$dir" ]; then
     err=$(sudo -A mount $part $dir 2>&1)
     [ $? -eq 0 ] && alert_info $script "Mounted $part in $dir" || alert_error $script "$err"
