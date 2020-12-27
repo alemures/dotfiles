@@ -24,5 +24,6 @@ if [ -z "$mount_point" ]; then
     alert_error $script "$dir does not exist"
   fi
 else
-  sudo -A umount $part && alert_info $script "Umounted $part"
+  err=$(sudo -A umount $part 2>&1)
+  [ $? -eq 0 ] && alert_info $script "Umounted $part" || alert_error $script "$err"
 fi
