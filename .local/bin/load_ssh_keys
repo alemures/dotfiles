@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep -slR "PRIVATE" $HOME/.ssh/ | xargs ssh-add
