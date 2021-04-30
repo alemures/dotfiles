@@ -1,6 +1,11 @@
 #!/bin/bash
 
-. $HOME/.local/bin/utils.sh
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
 
 options='bash
 bash_aliases
@@ -28,4 +33,4 @@ case $choice in
   *)            exit 1;;
 esac
 
-$TERMINAL -e $EDITOR $file
+$TERMINAL -e "$EDITOR" "$file"

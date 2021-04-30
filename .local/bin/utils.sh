@@ -1,15 +1,19 @@
 #!/bin/bash
 
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
 get_xres() {
-  xrdb -query | grep $1: | awk '{print $2}'
+  xrdb -query | grep "$1": | awk '{print $2}'
 }
 
 alert_info() {
-  notify-send -u normal -t 5000 $1 "$2"
+  notify-send -u normal -t 5000 "$1" "$2"
 }
 
 alert_error() {
-  notify-send -u critical -t 5000 $1 "$2"
+  notify-send -u critical -t 5000 "$1" "$2"
 }
 
 # nord theme
@@ -29,3 +33,17 @@ nord11=$(get_xres color1)
 nord13=$(get_xres color11)
 nord14=$(get_xres color10)
 nord15=$(get_xres color13)
+
+export nord0
+export nord1
+export nord3
+export nord4
+export nord5
+export nord6
+export nord7
+export nord8
+export nord9
+export nord11
+export nord13
+export nord14
+export nord15

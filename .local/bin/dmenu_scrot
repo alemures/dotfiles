@@ -1,6 +1,11 @@
 #!/bin/bash
 
-. $HOME/.local/bin/utils.sh
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
 
 img_dir=$HOME/Pictures/Screenshots
 edit_command=gimp
@@ -17,8 +22,8 @@ options='1.quick_fullscreen
 choice=$(echo -e "$options" | dmenu -i -l 4 -p 'Screenshot type: ' -fn 'Ubuntu Mono:size=11' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
 
-mkdir -p $img_dir
-cd $img_dir
+mkdir -p "$img_dir"
+cd "$img_dir"
 
 case $choice in
   1.quick_fullscreen)   scrot -d 1 $filename && alert_info $script "$msg";;

@@ -1,29 +1,35 @@
 #!/bin/bash
 
-. $HOME/.local/bin/utils.sh
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
 
 script='dmenu_mount'
 
 devices=$(lsblk -rpo 'name,type,size,mountpoint')
 
 parts=$(echo "$devices" | grep part)
-part=$(echo "$parts" | dmenu -i -l 5 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=11' \
+part=$(echo "$parts" | dmenu -i -l 20 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=11' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3" | awk '{print $1}')
 
-[ -z $(lsblk -rpo 'name' | grep $part) ] && exit 1
+[ -z "$part" ] && exit 1
+lsblk -rpo 'name' | sed '1d' | grep -q "$part" || exit 1
 
-mount_point=$(echo "$devices" | grep $part | awk '{print $4}')
+mount_point=$(echo "$devices" | grep "$part" | awk '{print $4}')
 
 if [ -z "$mount_point" ]; then
-  dir=$(find /mnt /media $HOME -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
+  dir=$(find /mnt /media "$HOME" -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
     -fn 'Ubuntu Mono:size=11' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
   if [ -d "$dir" ]; then
-    err=$(sudo -A mount $part $dir 2>&1)
+    err=$(sudo -A mount "$part" "$dir" 2>&1)
     [ $? -eq 0 ] && alert_info $script "Mounted $part in $dir" || alert_error $script "$err"
   else
     alert_error $script "$dir does not exist"
   fi
 else
-  err=$(sudo -A umount $part 2>&1)
+  err=$(sudo -A umount "$part" 2>&1)
   [ $? -eq 0 ] && alert_info $script "Umounted $part" || alert_error $script "$err"
 fi
