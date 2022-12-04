@@ -81,6 +81,7 @@ URxvt.keysym.Meta-j: font-size:decrease
 ! keyboard-select
 URxvt.keysym.Meta-Escape: perl:keyboard-select:activate
 URxvt.keysym.Meta-s: perl:keyboard-select:search
+URxvt.keyboard-select.clipboard: true
 ! url-select
 URxvt.keysym.Meta-u: perl:url-select:select_next
 URxvt.url-select.launcher: sensible-browser

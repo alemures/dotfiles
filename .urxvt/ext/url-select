@@ -162,6 +162,8 @@ sub key_press {
 		$self->selection_beg(${$found}[0], ${$found}[1]);
 		$self->selection_end(${$found}[2], ${$found}[3]);
 		$self->selection_make($event->{time});
+		$self->selection($self->selection(), 1);
+		$self->selection_grab($event->{time}, 1);
 		$self->selection_beg(1, 0);
 		$self->selection_end(1, 0);
 		deactivate($self);
