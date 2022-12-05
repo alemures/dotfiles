@@ -11,7 +11,7 @@ script='dmenu_mount'
 
 devices=$(lsblk -rpo 'name,type,size,mountpoint')
 
-parts=$(echo "$devices" | grep part)
+parts=$(echo "$devices" | grep 'part\|rom')
 part=$(echo "$parts" | dmenu -i -l 20 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=11' \
   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3" | awk '{print $1}')
 
