@@ -43,7 +43,7 @@ bindsym $mod+Return exec $TERMINAL
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'Ubuntu Mono:size=11' -sb '$nord8' -nb '$nord0' -nf '$nord4' -sf '$nord3'
+bindsym $mod+d exec dmenu_launch
 
 # change focus
 bindsym $mod+h focus left

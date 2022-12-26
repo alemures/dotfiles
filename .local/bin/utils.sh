@@ -4,6 +4,12 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+trap 'error_handler $script $? $LINENO' ERR
+
+error_handler() {
+  alert_error $1 "Error: ($2) occurred on line $3"
+}
+
 get_xres() {
   xrdb -query | grep "$1": | awk '{print $2}'
 }

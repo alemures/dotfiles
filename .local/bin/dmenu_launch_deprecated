@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
+
+script='dmenu_launch'
+
+files=''
+[ -d ~/.local/share/applications ] && files+=$(find ~/.local/share/applications -name '*.desktop' -exec basename --suffix=.desktop {} \;)
+[ -d /usr/share/applications ] && files+=$(find /usr/share/applications -name '*.desktop' -exec basename --suffix=.desktop {} \;)
+[ -d /usr/local/share/applications ] && files+=$(find /usr/local/share/applications -name '*.desktop' -exec basename --suffix=.desktop {} \;)
+
+file=$(echo "$files" | sort | dmenu -i -p 'Run app:' -fn 'Ubuntu Mono:size=11' \
+   -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
+
+gtk-launch $file

@@ -1,36 +1,39 @@
-#!/bin/bash
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const utils = require('./utils');
 
-# http://redsymbol.net/articles/unofficial-bash-strict-mode/
-set -euo pipefail
-IFS=$'\n\t'
+const home = process.env['HOME'];
 
-# shellcheck source=./utils.sh
-. "$HOME/.local/bin/utils.sh"
+const configs = {
+  bash: `${home}/.bashrc`,
+  bash_aliases: `${home}/.bash_aliases`,
+  dunst: `${home}/.config/dunst/dunstrc`,
+  i3: `${home}/.config/i3/config`,
+  i3status: `${home}/.config/i3status/config`,
+  profile: `${home}/.profile`,
+  ranger: `${home}/.config/ranger/rc.conf`,
+  vim: `${home}/.vimrc`,
+  xresources: `${home}/.Xresources`,
+};
 
-options='bash
-bash_aliases
-dunst
-i3
-i3status
-profile
-ranger
-vim
-xresources'
+const dmenuResult = utils.run({
+  command: 'dmenu',
+  args: ['-i', '-p', 'Edit config file:'],
+  options: { input: Object.keys(configs).join(os.EOL), silentExit: true },
+});
 
-choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:size=11' \
-  -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
+const config = dmenuResult.stdout.trim();
+if (!configs[config]) throw new Error('Invalid config option');
 
-case $choice in
-  bash)         file="$HOME/.bashrc";;
-  bash_aliases) file="$HOME/.bash_aliases";;
-  dunst)        file="$HOME/.config/dunst/dunstrc";;
-  i3)           file="$HOME/.config/i3/config";;
-  i3status)     file="$HOME/.config/i3status/config";;
-  profile)      file="$HOME/.profile";;
-  ranger)       file="$HOME/.config/ranger/rc.conf";;
-  vim)          file="$HOME/.vimrc";;
-  xresources)   file="$HOME/.Xresources";;
-  *)            exit 1;;
-esac
+const terminal = process.env['TERMINAL'];
+if (!terminal) throw new Error('Missing env variable $TERMINAL');
 
-$TERMINAL -e "$EDITOR" "$file"
+const editor = process.env['EDITOR'];
+if (!editor) throw new Error('Missing env variable $EDITOR');
+
+utils.run({
+  command: terminal,
+  args: ['-e', editor, configs[config]],
+});

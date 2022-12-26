@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
+
+script='dmenu_edit_configs'
+
+options='bash
+bash_aliases
+dunst
+i3
+i3status
+profile
+ranger
+vim
+xresources'
+
+choice=$(echo -e "$options" | dmenu -i -p 'Edit config file: ' -fn 'Ubuntu Mono:size=11' \
+  -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
+
+case $choice in
+  bash)         file="$HOME/.bashrc";;
+  bash_aliases) file="$HOME/.bash_aliases";;
+  dunst)        file="$HOME/.config/dunst/dunstrc";;
+  i3)           file="$HOME/.config/i3/config";;
+  i3status)     file="$HOME/.config/i3status/config";;
+  profile)      file="$HOME/.profile";;
+  ranger)       file="$HOME/.config/ranger/rc.conf";;
+  vim)          file="$HOME/.vimrc";;
+  xresources)   file="$HOME/.Xresources";;
+  *)            exit 1;;
+esac
+
+$TERMINAL -e "$EDITOR" "$file"
