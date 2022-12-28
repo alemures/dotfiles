@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -26,6 +27,7 @@ const dmenuResult = utils.run({
   args: ['-i', '-p', 'Run app:'],
   options: { input: apps.join(os.EOL), silentExit: true },
 });
+
 utils.run({
   command: 'gtk-launch',
   args: [dmenuResult.stdout.trim()],

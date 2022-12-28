@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
+
 const os = require('os');
 const utils = require('./utils');
 
-const home = process.env['HOME'];
+const home = utils.getEnvVar('HOME');
+const terminal = utils.getEnvVar('TERMINAL');
+const editor = utils.getEnvVar('EDITOR');
 
 const configs = {
   bash: `${home}/.bashrc`,
@@ -24,16 +25,10 @@ const dmenuResult = utils.run({
   options: { input: Object.keys(configs).join(os.EOL), silentExit: true },
 });
 
-const config = dmenuResult.stdout.trim();
-if (!configs[config]) throw new Error('Invalid config option');
-
-const terminal = process.env['TERMINAL'];
-if (!terminal) throw new Error('Missing env variable $TERMINAL');
-
-const editor = process.env['EDITOR'];
-if (!editor) throw new Error('Missing env variable $EDITOR');
+const configPath = configs[dmenuResult.stdout.trim()];
+if (!configPath) throw new Error('Invalid config option');
 
 utils.run({
   command: terminal,
-  args: ['-e', editor, configs[config]],
+  args: ['-e', editor, configPath],
 });

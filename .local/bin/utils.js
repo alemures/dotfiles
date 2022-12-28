@@ -5,7 +5,7 @@ const path = require('path');
 const scriptName = path.basename(process.argv[process.argv.length - 1]);
 
 process.on('uncaughtException', function (err) {
-  alertError(scriptName, err.message);
+  alertError(err.message);
 });
 
 class XResources {
@@ -65,20 +65,42 @@ const theme = {
 };
 
 /**
- * @param {string} title
+ *
+ * @param {string} name
+ * @param {string} [defaultValue]
+ * @returns
+ */
+function getEnvVar(name, defaultValue) {
+  const value = process.env[name];
+  if (value !== undefined) {
+    return value;
+  } else if (defaultValue !== undefined) {
+    return defaultValue;
+  }
+  throw new Error(`Missing env variable ${name}`);
+}
+module.exports.getEnvVar = getEnvVar;
+
+/**
  * @param {string} message
  */
-function alertInfo(title, message) {
-  spawnSync('notify-send', ['-u', 'normal', '-t', '5000', title, message]);
+function alertInfo(message) {
+  spawnSync('notify-send', ['-u', 'normal', '-t', '5000', scriptName, message]);
 }
 module.exports.alertInfo = alertInfo;
 
 /**
- * @param {string} title
  * @param {string} message
  */
-function alertError(title, message) {
-  spawnSync('notify-send', ['-u', 'critical', '-t', '5000', title, message]);
+function alertError(message) {
+  spawnSync('notify-send', [
+    '-u',
+    'critical',
+    '-t',
+    '5000',
+    scriptName,
+    message,
+  ]);
 }
 module.exports.alertError = alertError;
 
@@ -94,7 +116,7 @@ function checkExitOnFailure(spawnResult, command, silentExit) {
       `Command ${command} error status: ${spawnResult.status}`;
 
     if (!silentExit) {
-      alertError(scriptName, message);
+      alertError(message);
     }
 
     process.exit(spawnResult.status);
@@ -109,6 +131,8 @@ module.exports.checkExitOnFailure = checkExitOnFailure;
  * @param {string[]} [param.args]
  * @param {object} [param.options]
  * @param {string} [param.options.input]
+ * @param {string} [param.options.cmd]
+ * @param {boolean} [param.options.shell]
  * @param {boolean} [param.options.exitOnFailure]
  * @param {boolean} [param.options.silentExit]
  */
@@ -117,6 +141,8 @@ function run({ command, args = [], options = {} }) {
   const spawnOptions = {
     encoding: 'utf8',
     input: options.input,
+    cwd: options.cmd,
+    shell: options.shell,
   };
 
   const exitOnFailure =
