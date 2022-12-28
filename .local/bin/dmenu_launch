@@ -28,7 +28,10 @@ const dmenuResult = utils.run({
   options: { input: apps.join(os.EOL), silentExit: true },
 });
 
+const app = dmenuResult.stdout.trim();
+if (!apps.includes(app)) throw new Error('Invalid selected app');
+
 utils.run({
   command: 'gtk-launch',
-  args: [dmenuResult.stdout.trim()],
+  args: [app],
 });

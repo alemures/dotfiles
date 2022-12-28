@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+# shellcheck source=./utils.sh
+. "$HOME/.local/bin/utils.sh"
+
+img_dir=$HOME/Pictures/Screenshots
+edit_command=gimp
+
+filename='%Y-%m-%d-@%H-%M-%S.png'
+script='dmenu_scrot'
+msg="Screenshot saved in $img_dir"
+
+options='1.quick_fullscreen
+2.delayed_fullscreen
+3.section
+4.edit_fullscreen'
+
+choice=$(echo -e "$options" | dmenu -i -l 4 -p 'Screenshot type: ' -fn 'Ubuntu Mono:size=11' \
+  -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
+
+mkdir -p "$img_dir"
+cd "$img_dir"
+
+case $choice in
+  1.quick_fullscreen)   scrot -d 1 $filename && alert_info $script "$msg";;
+  2.delayed_fullscreen) scrot -d 4 $filename && alert_info $script "$msg";;
+  3.section)            scrot -s $filename && alert_info $script "$msg";;
+  4.edit_fullscreen)    [ -x "$(command -v $edit_command)" ] && scrot -d 1 $filename -e "$edit_command \$f" && alert_info $script "$msg" || alert_error $script "Required editor $edit_command not installed";;
+  *)                    exit 1;;
+esac
