@@ -30,8 +30,8 @@ class XResources {
     /**@type {Map<string, string>} */
     const values = new Map();
     result.stdout
+      .trim()
       .split(os.EOL)
-      .filter((item) => item)
       .forEach((item) => {
         const colonPosition = item.indexOf(':');
         values.set(

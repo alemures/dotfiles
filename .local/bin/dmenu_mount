@@ -1,34 +1,86 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-# http://redsymbol.net/articles/unofficial-bash-strict-mode/
-set -euo pipefail
-IFS=$'\n\t'
+const os = require('os');
+const utils = require('./utils');
 
-# shellcheck source=./utils.sh
-. "$HOME/.local/bin/utils.sh"
+const home = utils.getEnvVar('HOME');
 
-script='dmenu_mount'
+/**
+ * @param {string} device
+ * @returns
+ */
+function parseDevice(device) {
+  const splittedDevice = device.split(' ');
+  return {
+    name: splittedDevice[0],
+    type: splittedDevice[1],
+    size: splittedDevice[2],
+    mountpoint: splittedDevice[3] || undefined,
+  };
+}
 
-devices=$(lsblk -rpo 'name,type,size,mountpoint')
+const lsblkResult = utils.run({
+  command: 'lsblk',
+  args: ['-rpo', 'name,type,size,mountpoint'],
+});
 
-parts=$(echo "$devices" | grep 'part\|rom')
-part=$(echo "$parts" | dmenu -i -l 20 -p 'Mount/Umount partition:' -fn 'Ubuntu Mono:size=11' \
-  -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3" | awk '{print $1}')
+const devices = lsblkResult.stdout
+  .trim()
+  .split(os.EOL)
+  .filter((line) => line.includes('part') || line.includes('rom'));
 
-lsblk -rpo 'name' | sed '1d' | grep -q "$part"
+const deviceNames = devices.map((deviceInfo) => deviceInfo.split(' ')[0]);
 
-mount_point=$(echo "$devices" | grep "$part" | awk '{print $4}')
+const dmenuResult = utils.run({
+  command: 'dmenu',
+  args: ['-i', '-l', '20', '-p', 'Mount/Umount partition:'],
+  options: { input: devices.join(os.EOL), silentExit: true },
+});
 
-if [ -z "$mount_point" ]; then
-  dir=$(find /mnt /media "$HOME" -maxdepth 1 -type d | dmenu -i -p 'Mount point:' \
-    -fn 'Ubuntu Mono:size=11' -sb "$nord8" -nb "$nord0" -nf "$nord4" -sf "$nord3")
-  if [ -d "$dir" ]; then
-    err=$(sudo -A mount "$part" "$dir" 2>&1)
-    [ $? -eq 0 ] && alert_info $script "Mounted $part in $dir" || alert_error $script "$err"
-  else
-    alert_error $script "$dir does not exist"
-  fi
-else
-  err=$(sudo -A umount "$part" 2>&1)
-  [ $? -eq 0 ] && alert_info $script "Umounted $part" || alert_error $script "$err"
-fi
+const parsedDevice = parseDevice(dmenuResult.stdout.trim());
+if (!deviceNames.includes(parsedDevice.name))
+  throw new Error('Invalid block device');
+
+if (parsedDevice.mountpoint) {
+  utils.run({
+    command: 'sudo',
+    args: ['-A', 'umount', parsedDevice.name],
+  });
+  utils.alertInfo(`Umounted ${parsedDevice.name}`);
+} else {
+  const findResult = utils.run({
+    command: 'find',
+    args: [
+      '/mnt',
+      '/media',
+      home,
+      '-maxdepth',
+      '1',
+      '-not',
+      '-path',
+      '*/.*',
+      '-type',
+      'd',
+    ],
+  });
+
+  const directories = findResult.stdout.trim();
+
+  const dmenuResult = utils.run({
+    command: 'dmenu',
+    args: ['-i', '-p', 'Mount point:'],
+    options: { input: directories, silentExit: true },
+  });
+
+  const targetDirectory = dmenuResult.stdout.trim();
+
+  if (!directories.split(os.EOL).includes(targetDirectory)) {
+    throw new Error('Invalid directory');
+  }
+
+  utils.run({
+    command: 'sudo',
+    args: ['-A', 'mount', parsedDevice.name, targetDirectory],
+  });
+  utils.alertInfo(`Mounted ${parsedDevice.name} in ${targetDirectory}`);
+}
