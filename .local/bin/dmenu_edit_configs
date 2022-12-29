@@ -25,6 +25,7 @@ const dmenuResult = utils.run({
   options: { input: Object.keys(configs).join(os.EOL), silentExit: true },
 });
 
+// @ts-ignore
 const configPath = configs[dmenuResult.stdout.trim()];
 if (!configPath) throw new Error('Invalid config option');
 

@@ -68,7 +68,6 @@ const theme = {
  *
  * @param {string} name
  * @param {string} [defaultValue]
- * @returns
  */
 function getEnvVar(name, defaultValue) {
   const value = process.env[name];

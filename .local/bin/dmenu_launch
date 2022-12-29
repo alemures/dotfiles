@@ -11,6 +11,7 @@ const appDirs = [
   '/usr/local/share/applications',
 ];
 
+/** @type {string[]} */
 const apps = [];
 appDirs
   .filter((dir) => fs.existsSync(dir))

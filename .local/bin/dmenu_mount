@@ -7,7 +7,6 @@ const home = utils.getEnvVar('HOME');
 
 /**
  * @param {string} device
- * @returns
  */
 function parseDevice(device) {
   const splittedDevice = device.split(' ');
@@ -75,7 +74,7 @@ if (parsedDevice.mountpoint) {
   const targetDirectory = dmenuResult.stdout.trim();
 
   if (!directories.split(os.EOL).includes(targetDirectory)) {
-    throw new Error('Invalid directory');
+    throw new Error('Invalid target directory');
   }
 
   utils.run({
