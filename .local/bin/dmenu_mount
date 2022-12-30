@@ -42,8 +42,8 @@ if (!deviceNames.includes(parsedDevice.name))
 
 if (parsedDevice.mountpoint) {
   utils.run({
-    command: 'sudo',
-    args: ['-A', 'umount', parsedDevice.name],
+    command: 'pkexec',
+    args: ['umount', parsedDevice.name],
   });
   utils.alertInfo(`Umounted ${parsedDevice.name}`);
 } else {
@@ -78,8 +78,8 @@ if (parsedDevice.mountpoint) {
   }
 
   utils.run({
-    command: 'sudo',
-    args: ['-A', 'mount', parsedDevice.name, targetDirectory],
+    command: 'pkexec',
+    args: ['mount', parsedDevice.name, targetDirectory],
   });
   utils.alertInfo(`Mounted ${parsedDevice.name} in ${targetDirectory}`);
 }
