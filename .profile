@@ -2,7 +2,6 @@
 export TERMINAL='urxvtc'
 export EDITOR='vim'
 export BROWSER='google-chrome'
-export SUDO_ASKPASS=/usr/bin/ssh-askpass
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # From tzselec
