@@ -3,8 +3,10 @@ const os = require('os');
 const path = require('path');
 
 const scriptName = path.basename(process.argv[process.argv.length - 1]);
+const isDebug = getEnvVar('DEBUG', '');
 
 process.on('uncaughtException', function (err) {
+  if (isDebug) console.error('ERROR:', err);
   alertError(err.message);
 });
 
@@ -109,16 +111,27 @@ module.exports.alertError = alertError;
  * @param {boolean} silentExit
  */
 function checkExitOnFailure(spawnResult, command, silentExit) {
-  if (spawnResult.status) {
-    const message =
-      spawnResult.stderr.trim() ||
-      `Command ${command} error status: ${spawnResult.status}`;
+  let error;
+  let status;
 
+  if (spawnResult.status) {
+    error = new Error(
+      spawnResult.stderr.trim() ||
+        `Command ${command} error status: ${spawnResult.status}`
+    );
+    status = spawnResult.status;
+  } else if (spawnResult.error) {
+    error = spawnResult.error;
+    status = -1;
+  }
+
+  if (error && status) {
     if (!silentExit) {
-      alertError(message);
+      alertError(error.message);
     }
 
-    process.exit(spawnResult.status);
+    if (isDebug) console.error('ERROR:', error);
+    process.exit(status);
   }
 }
 
@@ -153,6 +166,8 @@ function run({ command, args = [], options = {} }) {
   if (command === 'dmenu') {
     args = args.concat(getDMenuStyleArgs());
   }
+
+  if (isDebug) console.log('COMMAND:', command, args);
 
   const result = spawnSync(command, args, spawnOptions);
   if (exitOnFailure) {
