@@ -5,6 +5,8 @@
 set $mod Mod4
 
 # theme colors from .Xresources
+set_from_resource $background background
+set_from_resource $foreground foreground
 set_from_resource $color0 color0
 set_from_resource $color1 color1
 set_from_resource $color2 color2
@@ -188,7 +190,7 @@ bar {
     position top
 
     colors {
-        background $color0
+        background $background
         statusline $color6
         separator  $color0
 
