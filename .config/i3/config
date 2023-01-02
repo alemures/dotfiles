@@ -4,23 +4,23 @@
 
 set $mod Mod4
 
-# nord theme colors from .Xresources
-set_from_resource $nord0 background
-set_from_resource $nord1 color0
-#set_from_resource $nord2
-set_from_resource $nord3 color8
-set_from_resource $nord4 foreground
-set_from_resource $nord5 color7
-set_from_resource $nord6 color15
-set_from_resource $nord7 color14
-set_from_resource $nord8 color6
-set_from_resource $nord9 color12
-#set_from_resource $nord10
-set_from_resource $nord11 color1
-#set_from_resource $nord12
-set_from_resource $nord13 color11
-set_from_resource $nord14 color10
-set_from_resource $nord15 color13
+# theme colors from .Xresources
+set_from_resource $color0 color0
+set_from_resource $color1 color1
+set_from_resource $color2 color2
+set_from_resource $color3 color3
+set_from_resource $color4 color4
+set_from_resource $color5 color5
+set_from_resource $color6 color6
+set_from_resource $color7 color7
+set_from_resource $color8 color8
+set_from_resource $color9 color9
+set_from_resource $color10 color10
+set_from_resource $color11 color11
+set_from_resource $color12 color12
+set_from_resource $color13 color13
+set_from_resource $color14 color14
+set_from_resource $color15 color15
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -190,14 +190,14 @@ bar {
     position top
 
     colors {
-        background $nord0
-        statusline $nord8
-        separator  $nord1
+        background $color0
+        statusline $color6
+        separator  $color0
 
         # colour of border, background, and text
-        focused_workspace  $nord3 $nord8
-        active_workspace   $nord3 $nord8
-        inactive_workspace $nord8 $nord3
-        urgent_workspace   $nord3 $nord15
+        focused_workspace  $color8 $color6
+        active_workspace   $color8 $color6
+        inactive_workspace $color6 $color8
+        urgent_workspace   $color8 $color13
     }
 }
