@@ -184,6 +184,16 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Window color settings
+# class                 border      backgr. text        indicator
+client.focused          $background $color8 $foreground $foreground
+client.unfocused        $background $color0 $foreground $foreground
+client.focused_inactive $background $color0 $foreground $background
+client.placeholder      $background $color0 $foreground $foreground
+client.urgent           $color9     $color9 $foreground $foreground
+
+client.background       $background
+
 # Start i3bar to display a workspace bar
 bar {
     status_command i3status
@@ -194,10 +204,10 @@ bar {
         statusline $color6
         separator  $color0
 
-        # colour of border, background, and text
-        focused_workspace  $color8 $color6
-        active_workspace   $color8 $color6
-        inactive_workspace $color6 $color8
-        urgent_workspace   $color8 $color13
+        # class            border  backgr. text
+        focused_workspace  $color6 $color6 $color8
+        active_workspace   $color6 $color6 $color8
+        inactive_workspace $color8 $color8 $color6
+        urgent_workspace   $color9 $color9 $foreground
     }
 }
