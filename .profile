@@ -7,6 +7,10 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 # From tzselec
 export TZ='Europe/Madrid'
 
+# Create nvm env variable and make node and npm available system wise
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # if running bash source .bashrc
 if [ -n "$BASH_VERSION" ]; then
     . "$HOME/.bashrc"
