@@ -80,6 +80,7 @@ Xft.lcdfilter: lcdfilter
 
 ! URxvt
 
+URxvt*geometry: 80x240+0+0
 URxvt.font: xft:Ubuntu Mono:size=11
 URxvt.saveLines: 5000
 URxvt.scrollBar: false
