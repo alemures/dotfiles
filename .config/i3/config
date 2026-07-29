@@ -113,7 +113,7 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 #bindsym XF86AudioPrev exec playerctl previous
 
 # Screen lock
-bindsym $mod+o exec i3lock -i ~/.wallpaper_lock.png
+bindsym $mod+o exec i3lock -i "$HOME/.wallpaper_lock.png"
 
 # dmenu scripts
 bindsym $mod+d exec bun $HOME/scripts/src/dmenu_launch.ts
@@ -160,7 +160,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload; exec xrdb $HOME/.Xresources
+bindsym $mod+Shift+c exec --no-startup-id "xrdb $HOME/.Xresources && i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)

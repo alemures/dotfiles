@@ -61,5 +61,7 @@ volume master {
 
 disk "/" {
     format = " %avail"
-    #format = " %used/%total"
+    low_threshold = 10
+    threshold_type = "percentage_avail"
+    format_below_threshold = " %avail"
 }
