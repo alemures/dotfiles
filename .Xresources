@@ -46,7 +46,7 @@
 *.color14: nord7
 *.color15: nord6
 
-! URxvt colors
+! URxvt - Terminal.app Basic, macOS Terminal light theme
 
 URxvt.foreground: #000000
 URxvt.background: #ffffff
@@ -71,12 +71,11 @@ URxvt.color15: #e5e5e5
 
 ! Xft font
 
-Xft.dpi: 96
 Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
-Xft.lcdfilter: lcdfilter
+Xft.lcdfilter: lcddefault
 
 ! URxvt
 
