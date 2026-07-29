@@ -119,6 +119,7 @@ bindsym $mod+o exec i3lock -i ~/.wallpaper_lock.png
 bindsym $mod+d exec bun $HOME/scripts/src/dmenu_launch.ts
 bindsym $mod+p exec bun $HOME/scripts/src/dmenu_scrot.ts
 bindsym $mod+i exec bun $HOME/scripts/src/dmenu_edit_configs.ts
+bindsym $mod+Shift+i exec bun $HOME/scripts/src/dmenu_edit_system_configs.ts
 bindsym $mod+m exec bun $HOME/scripts/src/dmenu_mount.ts
 
 # Define names for default workspaces for which we configure key bindings later on.
